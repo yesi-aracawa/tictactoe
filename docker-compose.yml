@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  ruby:
+    build: .
+    image: ruby_rgot
+    working_dir: /home
+    volumes:
+      - /Projects/MAGMAHACKERS:/home
+    command:
+       sh -c '
+         ruby main.rb
+      '
