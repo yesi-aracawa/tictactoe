@@ -1,2 +1,2 @@
 FROM ruby
-RUN gem install rgot 
+RUN gem install rgot

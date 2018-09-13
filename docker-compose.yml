@@ -6,7 +6,7 @@ services:
     image: ruby_rgot
     working_dir: /home
     volumes:
-      - /Projects/MAGMAHACKERS:/home
+      - /Projects/Git/tictactoe:/home
     command:
        sh -c '
          ruby main.rb

@@ -1,5 +1,3 @@
-require './tictactoe.rb'
-$res = ''
-MENU()
-
-
+require_relative 'tictactoe'
+T = Tictactoe.new
+T.MENU
