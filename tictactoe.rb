@@ -1,12 +1,10 @@
 class Tictactoe 
-    #players 
+#players 
     $x = 0
     $o = 0
-    #board
+    $winner = 0
+#board
     $board = ['0','1','2','3','4','5','6','7','8']
-    # for i in 0...9
-    #     $board[i] = rand(0...10)
-    # end
 
 #MENU
     def MENU
@@ -16,7 +14,6 @@ class Tictactoe
         puts "START........1\n"
         puts "EXIT.........2\n"
         res = gets.chomp
-        res.to_i
         case res
             when '1' 
                 START()
@@ -28,7 +25,8 @@ class Tictactoe
         end
     
     end
-    #start
+
+#start
     def START
         puts "************START***************"
         for i in 0...9
@@ -39,7 +37,6 @@ class Tictactoe
         end
         puts "Are you Ready? press 1, return menu press 2"
         ans = gets.chomp
-        ans.to_i
         case ans
             when '1' 
                 GAME()
@@ -51,29 +48,136 @@ class Tictactoe
         end
     end
 
+#DISPLAY-BOARD
+def Dboard(n)
+    (0..n-1).each do |i|
+        print "|_#{$board[i]}_|"
+        if $board[i] == '2' || $board[i] == '5' || $board[i] == '8'
+            puts "\n"
+        end
+    end
+end
+
 #GAME
     def GAME
-        puts "give me the number of volume? only one number por example 3 --- = 3x3"
+        puts "give me the number of volume? only one number for example 3 --- = 3x3"
         n = gets.chomp
         n = n.to_i
         n = n * n  
-        board = Array.new(n)
+        $board = Array.new(n)
         (0..n-1).each do |i|
-            board[i] = rand(n)
+            $board[i] = i.to_s
         end
-        (0..n-1).each do |i|
-            print "|_#{board[i]}_|"
-
-            if i==2 || i ==5 || i == 8
-                puts "\n"
-            end
+        Dboard(n)
+        Play(n)
+    end
+#PLAY
+def Play(n)
+    puts "player 1 your turn, press the numer of the position you want"
+    p = gets.chomp
+    $x=1 
+    Position($x,p.to_i)
+    Dboard(n)
+    $winner = Valid()
+    if $winner == 1
+        puts "Congratulations Player 1!! YOU WON"
+        EXIT()
+    elsif $winner == 2
+        puts "Congratulations Player 2!! YOU WON"
+        EXIT()
+    else
+        puts "player 2 your turn, press the numer of the position you want"
+        p = gets.chomp 
+        $y=2
+        Position($y,p.to_i)
+        Dboard(n)
+        $winner = Valid()
+        if $winner == 1
+            puts "Congratulations Player 1!! YOU WON"
+            EXIT()
+        elsif $winner == 2
+            puts "Congratulations Player 2!! YOU WON"
+            EXIT()
+        else
+            Play(n)
         end
-    # puts "player 1 your turn"
-    # puts "player 2 your turn"
+    end
+    
+end
 
+#Position
+    def Position(pl,p)
+        if pl == 1
+            $board[p] = 'X'
+        elsif pl == 2
+            $board[p] = 'O'
+        else
+            puts "error in Players Position"
+        end
     end
 
-    #EXIT GAME
+#Valid GAME
+    def Valid
+        if ($board[0] == $board [1]  && $board[1] == $board[2] )
+         	if  $board [0] == 'X'			
+                return 1
+                else
+                return 2 
+            end	
+        elsif ($board[3] == $board [4]  && $board[4] == $board[5] )
+                if $board [3] == 'X'		
+                return 1
+                else
+                return 2 
+                end
+        elsif ($board[6] == $board [7]  && $board[7] == $board[8] )
+                if $board [6] == 'X'			
+                return 1
+                else
+                return 2 
+                end
+        elsif ($board[0] == $board [3]  && $board[3] == $board[6] )
+                if $board [0] == 'X'			
+                return 1
+                else
+                return 2 
+                end
+        elsif ($board[1] == $board [4]  && $board[4] == $board[7] )
+            	if $board [1] == 'X'			
+                return 1
+                else
+                return 2 
+                end
+        elsif ($board[2] == $board [5]  && $board[5] == $board[8] )
+            	if $board [2] == 'X'			
+                return 1
+                else
+                return 2 
+                end
+        elsif ($board[0] == $board [4]  && $board[4] == $board[8] )
+            	if $board [0] == 'X'		
+                return 1
+                else
+                return 2 
+                end
+        elsif ($board[2] == $board [4]  && $board[4] == $board[6] )
+            	if $board [2] == 'X' 		
+                return 1
+                else
+                return 2 
+                end
+        elsif ($board[0] == $board [3]  && $board[3] == $board[6] )
+            	if $board [0] == 'X'			
+                return 1
+                else
+                return 2 
+                end
+        else 
+            return 0
+        end
+    end
+
+#EXIT GAME
     def EXIT
     exit 
     end

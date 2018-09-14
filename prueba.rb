@@ -5,7 +5,7 @@ puts "give me the number of volume? only one number por example 3 --- = 3x3"
         n = n * n  
         board = Array.new(n)
         (0..n-1).each do |i|
-            board[i] = rand(n)
+            board[i] = i
         end
         (0..n-1).each do |i|
             print "|_#{board[i]}_|"
