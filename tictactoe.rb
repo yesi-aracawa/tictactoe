@@ -16,6 +16,7 @@ class Tictactoe
         res = gets.chomp
         case res
             when '1' 
+                system 'cls'
                 START()
             when '2'
                 EXIT()
@@ -50,33 +51,42 @@ class Tictactoe
 
 #DISPLAY-BOARD
 def Dboard(n)
-    (0..n-1).each do |i|
-        print "|_#{$board[i]}_|"
-        if $board[i] == '2' || $board[i] == '5' || $board[i] == '8'
-            puts "\n"
+    cont = 0
+    (0..n-1).each do 
+        (0..n-1).each do 
+            print "|_%02s_|" % $board[cont]
+            cont += 1
         end
+        print "\n"
     end
 end
 
 #GAME
     def GAME
         puts "give me the number of volume? only one number for example 3 --- = 3x3"
-        n = gets.chomp
-        n = n.to_i
-        n = n * n  
-        $board = Array.new(n)
-        (0..n-1).each do |i|
-            $board[i] = i.to_s
+        sizrb = gets.chomp
+        sizrb = sizrb.to_i
+        n = sizrb
+        if n < 3
+            puts "ERROR you can't put a number < 3"
+            GAME()
+        else
+            sizrb = sizrb * sizrb  
+            $board = Array.new(sizrb)
+            (0..sizrb-1).each do |i|
+                $board[i] = i.to_s
+            end
+            system 'cls'
+            Dboard(n)
+            Play(sizrb,n)
         end
-        Dboard(n)
-        Play(n)
     end
 #PLAY
-def Play(n)
+def Play(sizrb,n)
     puts "player 1 your turn, press the numer of the position you want"
     p = gets.chomp
     $x=1 
-    Position($x,p.to_i)
+    Position($x,Integer(p))
     Dboard(n)
     $winner = Valid()
     if $winner == 1
@@ -89,7 +99,7 @@ def Play(n)
         puts "player 2 your turn, press the numer of the position you want"
         p = gets.chomp 
         $y=2
-        Position($y,p.to_i)
+        Position($y,Integer(p))
         Dboard(n)
         $winner = Valid()
         if $winner == 1
@@ -99,7 +109,18 @@ def Play(n)
             puts "Congratulations Player 2!! YOU WON"
             EXIT()
         else
-            Play(n)
+            $bandera = 0
+            (0..sizrb-1).each do |i|
+              if $board[i] != i.to_s
+                $bandera = $bandera + 1
+              end
+            end
+            if ($winner == 0 && $bandera == (sizrb-1))
+                puts "THE GAME IS OVER"
+                EXIT()
+            else
+            Play(sizrb,n)
+            end
         end
     end
     
@@ -107,6 +128,7 @@ end
 
 #Position
     def Position(pl,p)
+        p = p.to_i
         if pl == 1
             $board[p] = 'X'
         elsif pl == 2

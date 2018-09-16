@@ -1,6 +1,6 @@
 
 puts "give me the number of volume? only one number por example 3 --- = 3x3"
-        n = gets.chomp
+        n = STDIN.gets.chomp
         n = n.to_i
         n = n * n  
         board = Array.new(n)
