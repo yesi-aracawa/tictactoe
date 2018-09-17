@@ -14,3 +14,5 @@ puts "give me the number of volume? only one number por example 3 --- = 3x3"
                 puts "\n"
             end
         end
+        puts board.to_s
+       
