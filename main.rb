@@ -1,3 +1,3 @@
-require_relative 'tictactoe'
-T = Tictactoe.new
-T.MENU
+require 'tictactoe'
+
+Tictactoe.menu
