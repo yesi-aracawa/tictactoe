@@ -3,6 +3,7 @@ class Tictactoe
     $pl = 0
     $winner = 0
 #board
+    $regex = /^\s*(?:...){0,2}(XXX|OOO)|^\s*(O|X)..\2..\2..|^\s*.(O|X)..\3..\3.|^\s*..(O|X)..\4..\4|^\s*(O|X)...\5...\5|^\s*..(O|X).\6.\6../
     $board = ['0','1','2','3','4','5','6','7','8']
 
 #menu
@@ -126,7 +127,7 @@ end
     def self.regex(board,pl)
         board = board.join
         puts board
-       if /^\s*(?:...){0,2}(XXX|OOO)|^\s*(O|X)..\2..\2..|^\s*.(O|X)..\3..\3.|^\s*..(O|X)..\4..\4|^\s*(O|X)...\5...\5|^\s*..(O|X).\6.\6../.match(board.to_s) != nil 
+       if $regex.match(board.to_s) != nil 
             if pl == 1 || pl == 2
                 return pl
             end
